@@ -1,28 +1,44 @@
-import { AppBar, Link, Toolbar, Typography, Button, Box } from '@mui/material';
+import { AppBar, Box, Button, IconButton, Link, Toolbar, Typography } from "@mui/material"
+import MenuIcon from '@mui/icons-material/Menu';
 import NextLink from 'next/link';
-import React from 'react'
 
 export const NavBar = () => {
   return (
     <AppBar>
         <Toolbar>
-            <Link href='/' passHref component={ NextLink }>
-                <Typography variant='h6'> Librería</Typography>
-            </Link>
+            <IconButton
+                size="large"
+                edge="start"
+                aria-label="menu"
+                color="inherit"
+                sx={{  }}
+            >
+                <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" component="h3" sx={{  }}>
+                Home
+            </Typography>
             <Box flex={1} />
-            <Box>
+            
+            <Box component="nav" 
+                 sx= {{ display: { xs: 'none', sm: 'flex' }}} >
+                    
                 <Link href='/libros' passHref component={ NextLink }>
-                    <Button>Libros</Button>
+                    <Button sx={{ color: 'white'}}>Libros</Button>
                 </Link>
-                <Link href='/categorias' passHref component={ NextLink }>
-                    <Button>Categorías</Button>
+                <Link href='/categorias' component={ NextLink }>
+                    <Button sx={{ color: 'white'}}>Categorias</Button>
                 </Link>
-                <Link href='/editores' passHref component={ NextLink }>
-                    <Button>Editores</Button>
+                <Link href='/editores' component={ NextLink }>
+                    <Button sx={{ color: 'white'}}>Editores</Button>
                 </Link>
             </Box>
             <Box flex={1} />
+            <Box>
+                Registro
+            </Box>
         </Toolbar>
     </AppBar>
   )
-}
+
+  }

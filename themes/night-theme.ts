@@ -1,7 +1,7 @@
 import { createTheme } from '@mui/material/styles';
 
 
-export const lightTheme = createTheme({
+export const nightTheme = createTheme({
     palette: {
         mode: 'light',
         primary: {
@@ -27,7 +27,7 @@ export const lightTheme = createTheme({
           },
           styleOverrides: {
             root: {
-              backgroundColor: 'black',
+              backgroundColor: 'white',
               height: 60
             },
           }

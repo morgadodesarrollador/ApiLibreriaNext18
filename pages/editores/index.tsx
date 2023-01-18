@@ -1,14 +1,12 @@
 import React from 'react'
 import { MainLayouts } from '../../layouts'
 
-const CategoriaIndex = () => {
+const EditoresIndex = () => {
   return (
     <MainLayouts>
-        <h2>Categorias</h2>
+        <div>Editores</div>
     </MainLayouts>
-    
   )
 }
 
-
-export default CategoriaIndex
+export default EditoresIndex
