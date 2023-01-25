@@ -15,9 +15,9 @@ export const NavBar = () => {
             >
                 <MenuIcon />
             </IconButton>
-            <Typography variant="h6" component="h3" sx={{  }}>
-                Home
-            </Typography>
+            <Link href='/' passHref component={ NextLink }>
+                    <Button sx={{ color: 'white'}}>Home</Button>
+            </Link>
             <Box flex={1} />
             
             <Box component="nav" 
@@ -31,6 +31,9 @@ export const NavBar = () => {
                 </Link>
                 <Link href='/editores' component={ NextLink }>
                     <Button sx={{ color: 'white'}}>Editores</Button>
+                </Link>
+                <Link href='/clientes' component={ NextLink }>
+                    <Button sx={{ color: 'white'}}>Clientes</Button>
                 </Link>
             </Box>
             <Box flex={1} />

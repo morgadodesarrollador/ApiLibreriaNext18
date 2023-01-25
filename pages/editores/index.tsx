@@ -1,7 +1,6 @@
-import React from 'react'
 import { MainLayouts } from '../../layouts'
 
-const EditoresIndex = () => {
+const IndexEditoresPage = () => {
   return (
     <MainLayouts>
         <div>Editores</div>
@@ -9,4 +8,4 @@ const EditoresIndex = () => {
   )
 }
 
-export default EditoresIndex
+export default IndexEditoresPage
