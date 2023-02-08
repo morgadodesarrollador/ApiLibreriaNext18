@@ -1,6 +1,6 @@
 
 import { NextPage } from "next"
-import { MainLayouts } from "../layouts";
+import { PublicLayouts } from "../layouts";
 
  
 //NextPage --> indica que es un proyecto Next y no Reac
@@ -8,9 +8,9 @@ const indexPage: NextPage = () => {
   
 
   return (
-    <MainLayouts>
-      <h1>Libreria Picasso </h1>
-    </MainLayouts>
+    <PublicLayouts>
+      <h1>Public Libreria Picasso </h1>
+    </PublicLayouts>
   )
 }
 

@@ -1,8 +1,8 @@
-import { Mundo } from "../../components";
-import { ClientesList } from "../../components/clientes";
+import { Mundo } from "../../../components";
+import { ClientesList } from "../../../components/clientes";
 // import { ClientesList } from "../../components/clientes/clientesList1";
-import { useClientes } from "../../hooks/useClientes";
-import { MainLayouts } from '../../layouts/MainLayouts';
+import { useClientes } from "../../../hooks/useClientes";
+import { MainLayouts } from '../../../layouts/MainLayouts';
 
 const IndexClientesPage = () => {
 

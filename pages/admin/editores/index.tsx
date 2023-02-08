@@ -1,4 +1,4 @@
-import { MainLayouts } from '../../layouts'
+import { MainLayouts } from '../../../layouts'
 
 const IndexEditoresPage = () => {
   return (
