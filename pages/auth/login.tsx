@@ -1,7 +1,8 @@
 import { Box, Grid, Typography, TextField, Button, Link } from '@mui/material';
 import NextLink from 'next/link';
-import { useForm } from 'react-hook-form';
 import { AuthLayout } from '../../layouts';
+import { useForm } from 'react-hook-form';
+import { validations } from '../../utils';
 
 type FormData = {
     email: string,
@@ -9,12 +10,13 @@ type FormData = {
 };
 const LoginPage = () => { 
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
+    console.log(errors);
     const onLoginUser = ( data: FormData ) => {
         console.log({data});
     } 
     return (
         <AuthLayout title={'Ingresar'}>
-            <form onSubmit={ handleSubmit(onLoginUser) }>
+            <form onSubmit={ handleSubmit(onLoginUser) } noValidate>
                 <Box sx={{ width: 350, padding: '10px 20px'}}>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
@@ -22,12 +24,23 @@ const LoginPage = () => {
                         </Grid>
                         <Grid item xs={12}>
                             <TextField 
-                                { ...register('email')}
+                                { ...register('email', {
+                                    required: 'email es obligatorio',
+                                    validate: (val) => validations.isEmail(val)
+                                    // validate: validations.isEmail
+                                })}
+                                error={!!errors.email}
+                                helperText={errors.email?.message}
                                 type="email" label="Correo" variant='filled' fullWidth />
                         </Grid>
                         <Grid item xs={12}>
                             <TextField 
-                                { ...register('password')}
+                                { ...register('password', {
+                                    required:'Password es requerido',
+                                    minLength: { value: 6, message: 'Minimo 6 caracteres'}
+                                })}
+                                error={!!errors.password}
+                                helperText={errors.password?.message}
                                 label="Contraseña" type="password" variant='filled' fullWidth />
                         </Grid>
                         <Grid item xs={12}>
