@@ -7,9 +7,7 @@ type FormData = {
     email: string,
     password: string,
 };
-
-const LoginPage = () => {
-    
+const LoginPage = () => { 
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
     const onLoginUser = ( data: FormData ) => {
         console.log({data});
