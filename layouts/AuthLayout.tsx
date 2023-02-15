@@ -36,6 +36,9 @@ export const AuthLayout:FC<Props> = ({ children, title }) => {
                 { children }
             </Box>
         </main>
+        <footer>
+            <h2>Zona de Footer, ..</h2>
+        </footer>
     </>
   )
 }

@@ -8,7 +8,7 @@ interface Props {
 }
 export const LibroCard:FC<Props> = ({ libro }) => {
   return (
-    <Grid item xs= {6} sm={3}>
+    <Grid item  xs= {6} sm={3}>
         <Card sx={{ width: '90%' }}>
           <Link href={`/libros/${libro.isbn}`}  passHref component={NextLink} prefetch={false}>
             <CardActionArea>

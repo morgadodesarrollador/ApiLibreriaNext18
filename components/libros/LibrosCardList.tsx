@@ -6,8 +6,6 @@ import { ILibro } from '../../interfaces/libros/ILibro';
 interface Props {
     libros: ILibro[]
 }
-
-
 export const LibrosCardList:FC<Props> = ({ libros }) => {
   return (
     <Grid container spacing={4}>

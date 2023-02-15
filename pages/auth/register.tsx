@@ -8,7 +8,10 @@ const LoginPage = () => {
         <Box sx={{ width: 350, padding: '10px 20px'}}>
             <Grid container spacing={2}>
                 <Grid item xs={12}>
-                    <Typography variant='h1' component='h1'>Iniciar Sesión</Typography>
+                    <Typography variant='h3' component='h1'>Registro</Typography>
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField label="Nombre y Apellidos" variant='filled' fullWidth />
                 </Grid>
                 <Grid item xs={12}>
                     <TextField label="Correo" variant='filled' fullWidth />

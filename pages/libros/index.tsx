@@ -6,7 +6,6 @@ import { useLibros } from '../../hooks/useLibros';
 
 const IndexLibrosPage = () => {
   const { libros, isLoading } = useLibros('/libros');
-  console.log("l=", isLoading, "c=", libros);
 
   return (
     <PublicLayouts>
