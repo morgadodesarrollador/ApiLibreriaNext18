@@ -1,18 +1,43 @@
-import { Box, Grid, Typography, TextField, Button, Link } from '@mui/material';
+import { useState } from 'react';
 import NextLink from 'next/link';
-import { AuthLayout } from '../../layouts';
-import { useForm } from 'react-hook-form';
-import { validations } from '../../utils';
+import { Box, Grid, Typography, TextField, Button, Link, Chip } from '@mui/material';
+import { ErrorOutline } from '@mui/icons-material';
 
+import { useForm } from 'react-hook-form';
+import { AuthLayout } from '../../layouts';
+import { validations } from '../../utils';
+import { libreriaApi } from '../../api';
+
+interface IRespuestaLogin {
+    token: string;
+    email: string;
+    password: string;
+}
 type FormData = {
     email: string,
     password: string,
+    token?:string
 };
 const LoginPage = () => { 
+
+    
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
+    const [ showError, setShowError ] = useState(false);
     console.log(errors);
-    const onLoginUser = ( data: FormData ) => {
-        console.log({data});
+    const onLoginUser = async ({email, password}: FormData ) => {
+        setShowError(false);
+        console.log(email, password);
+        const datos = { email:email, password:password };
+        try {            
+            const { data }:FormData = await libreriaApi.post<IRespuestaLogin>('/auth/login', datos);
+            // const { token, email, password } = {d};
+            console.log(data);
+
+        }catch(error){
+            console.log(error);
+            setShowError(true);
+            setTimeout( () => setShowError(false), 3000)
+        }
     } 
     return (
         <AuthLayout title={'Ingresar'}>
@@ -21,6 +46,13 @@ const LoginPage = () => {
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
                             <Typography variant='h3' component='h3'>Iniciar Sesión</Typography>
+                            <Chip 
+                                label="nose reconoce usuario/contraseña"
+                                color="error"
+                                icon= {<ErrorOutline />}
+                                className="fadeIn"
+                                sx={{ display: showError ? 'flex': 'none'}}
+                            />
                         </Grid>
                         <Grid item xs={12}>
                             <TextField 
@@ -42,6 +74,12 @@ const LoginPage = () => {
                                 error={!!errors.password}
                                 helperText={errors.password?.message}
                                 label="Contraseña" type="password" variant='filled' fullWidth />
+                            <TextField
+                                 sx={{ display: showError ? 'flex': 'none'}}
+                                //  value =  {...register('totken') }
+                            />
+                                    
+                         
                         </Grid>
                         <Grid item xs={12}>
                             <Button 
