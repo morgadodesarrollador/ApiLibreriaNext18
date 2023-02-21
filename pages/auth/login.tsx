@@ -16,12 +16,11 @@ interface IRespuestaLogin {
 type FormData = {
     email: string,
     password: string,
-    token?:string
 };
 const LoginPage = () => { 
 
-    
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
+
     const [ showError, setShowError ] = useState(false);
     console.log(errors);
     const onLoginUser = async ({email, password}: FormData ) => {
@@ -47,7 +46,7 @@ const LoginPage = () => {
                         <Grid item xs={12}>
                             <Typography variant='h3' component='h3'>Iniciar Sesión</Typography>
                             <Chip 
-                                label="nose reconoce usuario/contraseña"
+                                label="No se reconoce usuario/contraseña"
                                 color="error"
                                 icon= {<ErrorOutline />}
                                 className="fadeIn"

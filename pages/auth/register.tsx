@@ -1,26 +1,89 @@
-import { Box, Grid, Typography, TextField, Button, Link } from '@mui/material';
+import { ErrorOutline, ErrorSharp } from '@mui/icons-material';
+import { Box, Grid, Typography, TextField, Button, Link, Chip } from '@mui/material';
 import NextLink from 'next/link';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { AuthLayout } from '../../layouts';
+import { validations } from '../../utils';
+import libreriaApi from '../../api/LibreriaApi';
 
-const LoginPage = () => {
+interface IRespuestaRegister {
+    token: string;
+    email: string;
+    password: string;
+    fullName: string;
+    isActive: boolean;
+    roles: String[]
+}
+type UserData = {
+    email: string,
+    password: string,
+    fullName: string
+};
+const RegisterPage = () => {
+  const { register, handleSubmit, formState: { errors } } = useForm<UserData>();
+  const [ showError, setShowError ] = useState(false);
+  
+  const onRegisterUser = async ( InputData: UserData ) => {
+    console.log({InputData}, InputData)
+    try {
+        const { data } = await libreriaApi.post<IRespuestaRegister>('/auth/register', InputData);
+        console.log(data)
+    }catch(error){
+        console.log('error');
+        setShowError(true);
+        console.log(showError);
+        setTimeout( () => setShowError(false), 3000)
+    }
+  }
+
   return (
     <AuthLayout title={'Ingresar'}>
+       <form onSubmit={ handleSubmit(onRegisterUser)} noValidate>
         <Box sx={{ width: 350, padding: '10px 20px'}}>
             <Grid container spacing={2}>
                 <Grid item xs={12}>
-                    <Typography variant='h3' component='h1'>Registro</Typography>
+                    <Typography variant='h3' component='h1'>Crear Cuenta</Typography>
+                    <Chip 
+                                label="No se reconoce usuario/contraseña"
+                                color="error"
+                                icon= {<ErrorOutline />}
+                                className="fadeIn"
+                                sx={{ display: showError ? 'flex': 'none'}}
+                            />
                 </Grid>
                 <Grid item xs={12}>
-                    <TextField label="Nombre y Apellidos" variant='filled' fullWidth />
+                    <TextField 
+                        { ...register('fullName', {
+                            required: 'Nombre y Apellidos obligatorio'
+                        })}
+                        error= { !!errors.fullName}
+                        helperText = { errors.fullName?.message }
+                        label="Nombre y Apellidos" variant='filled' fullWidth />
                 </Grid>
                 <Grid item xs={12}>
-                    <TextField label="Correo" variant='filled' fullWidth />
+                    <TextField 
+                        { ...register('email', {
+                            required: 'Email obligatorio',
+                            validate: validations.isEmail
+                        })}
+                        error= { !!errors.email}
+                        helperText = { errors.email?.message }
+                        label="Correo" variant='filled' fullWidth />
                 </Grid>
                 <Grid item xs={12}>
-                    <TextField label="Contraseña" type="password" variant='filled' fullWidth />
+                    <TextField 
+                        { ...register('password', {
+                            required: 'Password requerido',
+                            minLength: { value:6, message: 'Minimo 6 caracteres'}
+                        })}
+                        error= { !!errors.password}
+                        helperText = { errors.password?.message }
+                        label="Contraseña" type="password" variant='filled' fullWidth />
                 </Grid>
                 <Grid item xs={12}>
-                    <Button color='secondary' className='circular-btn' size='large' fullWidth>
+                    <Button 
+                        type="submit" color='secondary' className='circular-btn' size='large' fullWidth>
                         Ingresar
                     </Button>
                 </Grid>
@@ -31,9 +94,9 @@ const LoginPage = () => {
                 </Grid>
             </Grid>
         </Box>
-
+      </form>
     </AuthLayout>
   )
 }
 
-export default LoginPage
+export default RegisterPage
