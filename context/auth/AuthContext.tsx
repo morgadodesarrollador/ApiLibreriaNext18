@@ -5,7 +5,8 @@ import { IUser } from '../../interfaces/Users/IUser';
 interface ContextProps {
     isLoggedIn: boolean;
     user?: IUser;
-    //loginUser
+    
+    loginUser: (email: string, password: string) => Promise<boolean>;
     //regusterUser
 }
 
