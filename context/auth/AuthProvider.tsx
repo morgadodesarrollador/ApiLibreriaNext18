@@ -13,11 +13,11 @@ const AUTH_INITIAL_STATE: AuthState = {
     isLoggedIn: false,
     user: undefined
 }
-interface Props {
-    children: any
-}
+// interface Props {
+//     children: any
+// }
 
-export const AuthProvider:FC<Props> = ({ children }) => {
+export const AuthProvider:FC = ({ children }) => {
     const [ state, dispatch ] = useReducer( authReducer, AUTH_INITIAL_STATE );
     
 
@@ -38,6 +38,7 @@ export const AuthProvider:FC<Props> = ({ children }) => {
         <AuthContext.Provider value={{
             ...state,
             //métodos propios
+            loginUser
         }}>
             { children }
         </AuthContext.Provider>

@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { useRouter } from 'next/router';
 import NextLink from 'next/link';
-import { Box, Grid, Typography, TextField, Button, Link, Chip } from '@mui/material';
-import { ErrorOutline } from '@mui/icons-material';
-
 import { useForm } from 'react-hook-form';
+import { ErrorOutline } from '@mui/icons-material';
+import { Box, Grid, Typography, TextField, Button, Link, Chip } from '@mui/material';
+import { AuthContext } from '../../context';
 import { AuthLayout } from '../../layouts';
 import { validations } from '../../utils';
 import { libreriaApi } from '../../api';
@@ -18,25 +19,23 @@ type FormData = {
     password: string,
 };
 const LoginPage = () => { 
-
+    const router = useRouter();
+    const { loginUser } = useContext(AuthContext);
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
-
     const [ showError, setShowError ] = useState(false);
-    console.log(errors);
+
     const onLoginUser = async ({email, password}: FormData ) => {
         setShowError(false);
-        console.log(email, password);
-        const datos = { email:email, password:password };
-        try {            
-            const { data }:FormData = await libreriaApi.post<IRespuestaLogin>('/auth/login', datos);
-            // const { token, email, password } = {d};
-            console.log(data);
+        const isValidLogin = await loginUser(email, password);
 
-        }catch(error){
-            console.log(error);
+        if (!isValidLogin){
             setShowError(true);
-            setTimeout( () => setShowError(false), 3000)
+            setTimeout( () => setShowError(false), 3000);
+            return;
         }
+        //navegar a pantalla en la que estaba el usuario
+        // router.push('/');
+        router.replace('/');
     } 
     return (
         <AuthLayout title={'Ingresar'}>
