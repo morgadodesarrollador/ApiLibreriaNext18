@@ -1,5 +1,4 @@
 
-import { AccessTimeOutlined } from "@mui/icons-material";
 import { IUser } from "../../interfaces/Users/IUser";
 import { AuthState } from "./";
 
