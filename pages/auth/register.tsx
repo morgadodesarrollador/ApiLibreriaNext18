@@ -1,11 +1,13 @@
-import { ErrorOutline, ErrorSharp } from '@mui/icons-material';
+import { Email, ErrorOutline, ErrorSharp } from '@mui/icons-material';
 import { Box, Grid, Typography, TextField, Button, Link, Chip } from '@mui/material';
 import NextLink from 'next/link';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { AuthLayout } from '../../layouts';
 import { validations } from '../../utils';
 import libreriaApi from '../../api/LibreriaApi';
+import { useRouter } from 'next/router';
+import { AuthContext } from '../../context/auth/AuthContext';
 
 interface IRespuestaRegister {
     token: string;
@@ -21,20 +23,25 @@ type UserData = {
     fullName: string
 };
 const RegisterPage = () => {
+  const router = useRouter();
+  const { registerUser } = useContext(AuthContext);
   const { register, handleSubmit, formState: { errors } } = useForm<UserData>();
   const [ showError, setShowError ] = useState(false);
+  const [ errorMessage, setErrorMessage ] = useState('');
   
   const onRegisterUser = async ( InputData: UserData ) => {
-    console.log({InputData}, InputData)
-    try {
-        const { data } = await libreriaApi.post<IRespuestaRegister>('/auth/register', InputData);
-        console.log(data)
-    }catch(error){
-        console.log('error');
+    setShowError(false);
+    const { email, password, fullName } = InputData;
+    const {hasError, message } = await registerUser(email, password, fullName)
+    if (hasError){
         setShowError(true);
-        console.log(showError);
-        setTimeout( () => setShowError(false), 3000)
+        setErrorMessage(message || '');
+        setTimeout( () => setShowError(false), 3000);
+        return;
     }
+
+    router.replace('/');
+   
   }
 
   return (

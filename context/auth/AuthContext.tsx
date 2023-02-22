@@ -7,8 +7,9 @@ interface ContextProps {
     isLoggedIn: boolean;
     user?: IUser;
     
+    //firmas
     loginUser: (email: string, password: string) => Promise<boolean>;
-    registerUser: (fullName: string, password: string, email: string) => Promise<IRespuestaApiAuth>
+    registerUser: (email: string, password: string, fullName: string ) => Promise<IRespuestaApiAuth>
 }
 
 export const AuthContext  = createContext( {} as ContextProps );

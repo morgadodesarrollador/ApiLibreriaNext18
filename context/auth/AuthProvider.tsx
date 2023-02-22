@@ -30,7 +30,7 @@ export const AuthProvider:FC = ({ children }) => {
         }
     } 
 
-    const registerUser = async (fullName: string, password: string, email:string ):Promise<IRespuestaApiAuth>=> {
+    const registerUser = async (email: string, password: string, fullName: string ):Promise<IRespuestaApiAuth>=> {
         try {
             const { data } = await libreriaApi.post ('/auth/rgister', { email, fullName, password })
             const { token, user } = data;
@@ -58,7 +58,6 @@ export const AuthProvider:FC = ({ children }) => {
     return (
         <AuthContext.Provider value={{
             ...state,
-            //métodos propios
             loginUser,
             registerUser
         }}>
