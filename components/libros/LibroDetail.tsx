@@ -1,12 +1,13 @@
 import { Box, Button, Grid, Typography } from '@mui/material';
 import Image from 'next/image';
-import React, { FC } from 'react'
+import React, { FC, useContext } from 'react'
 import { ILibro } from '../../interfaces/libros/ILibro';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
+import { AuthContext } from '../../context';
 interface Props {
     libro: ILibro
 }
@@ -22,6 +23,8 @@ export const LibroDetail:FC<Props> = ({libro}) => {
     const handleChange = (event: React.SyntheticEvent, newValue: string) => {
       setValue(newValue);
     };
+    const { user } =  useContext(AuthContext); 
+
     
   return (
     <Grid container spacing={3}>
@@ -45,6 +48,7 @@ export const LibroDetail:FC<Props> = ({libro}) => {
             <Box display='flex' flexDirection='row'>
               <Typography sx={{width: '40%'}}  variant='subtitle1' > Paginas </Typography>
               <Typography sx={{width: '60%'}}> {libro.pageCount} </Typography>
+              { user?.email}
             </Box>
             <Box display='flex' flexDirection='row'>
               <Typography sx={{width: '40%'}}  variant='subtitle1' > Publicación </Typography>

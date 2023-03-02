@@ -1,13 +1,15 @@
+import { useContext, useState } from 'react';
+import NextLink from 'next/link';
+import { useRouter } from 'next/router';
+import { useForm } from 'react-hook-form';
+
 import { Email, ErrorOutline, ErrorSharp } from '@mui/icons-material';
 import { Box, Grid, Typography, TextField, Button, Link, Chip } from '@mui/material';
-import NextLink from 'next/link';
-import { useState, useContext } from 'react';
-import { useForm } from 'react-hook-form';
+
 import { AuthLayout } from '../../layouts';
 import { validations } from '../../utils';
-import libreriaApi from '../../api/LibreriaApi';
-import { useRouter } from 'next/router';
 import { AuthContext } from '../../context/auth/AuthContext';
+import libreriaApi from '../../api/LibreriaApi';
 
 interface IRespuestaRegister {
     token: string;
@@ -24,15 +26,21 @@ type UserData = {
 };
 const RegisterPage = () => {
   const router = useRouter();
+//hook
   const { registerUser } = useContext(AuthContext);
+  
   const { register, handleSubmit, formState: { errors } } = useForm<UserData>();
+
   const [ showError, setShowError ] = useState(false);
   const [ errorMessage, setErrorMessage ] = useState('');
-  
+
+  //manejador del evento submit del formulario
   const onRegisterUser = async ( InputData: UserData ) => {
+
     setShowError(false);
     const { email, password, fullName } = InputData;
     const {hasError, message } = await registerUser(email, password, fullName)
+    console.log(message);
     if (hasError){
         setShowError(true);
         setErrorMessage(message || '');
@@ -41,6 +49,7 @@ const RegisterPage = () => {
     }
 
     router.replace('/');
+    // router.push('/');
    
   }
 
